@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 0 60px 0;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px;
+            color: white;
+        }
+
+        .profile-info h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .profile-info .subtitle {
+            color: #8b949e;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 0 80px 0;
+        }
+
+        .hero-text {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text .gradient-blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .gradient-green {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .gradient-purple {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #8b949e;
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #8b949e;
+            border: 1px solid #30363d;
+        }
+
+        .btn-secondary:hover {
+            background: #21262d;
+            border-color: #8b949e;
+            color: #ffffff;
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            color: #8b949e;
+            border: 1px solid #30363d;
+            position: relative;
+        }
+
+        .btn-tertiary:hover {
+            background: #21262d;
+            border-color: #8b949e;
+            color: #ffffff;
+        }
+
+        .btn-tertiary::after {
+            content: '↓';
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+        /* Email Dropdown */
+        .email-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .email-dropdown-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #ffffff;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .email-dropdown-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .email-dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 280px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .email-dropdown.active .email-dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .email-text {
+            color: #ffffff;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .email-address {
+            background: #21262d;
+            color: #4facfe;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid #30363d;
+            user-select: all;
+            cursor: text;
+        }
+
+        /* Current Status */
+        .current-status {
+            margin-bottom: 60px;
+        }
+
+        .current-status h6 {
+            color: #8b949e;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .current-status strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 50%, #43e97b 100%);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: #4facfe;
+            box-shadow: 0 12px 40px rgba(79, 172, 254, 0.15);
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .project-description {
+            color: #8b949e;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tech-tag {
+            background: #21262d;
+            color: #7d8590;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .project-link {
+            color: #4facfe;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #00f2fe;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 60px 0;
+            border-top: 1px solid #30363d;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .skill-category {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 36px;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .skill-category:hover {
+            border-color: #4facfe;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.1);
+        }
+
+        /* Business Skills - Larger boxes */
+        .business-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .business-skill-category {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 36px;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .business-skill-category:hover {
+            border-color: #4facfe;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.1);
+        }
+
+        .skill-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .skill-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .business-skill-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .skill-list {
+            color: #8b949e;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .business-skill-list {
+            color: #8b949e;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Education Section */
+        .education-section {
+            padding: 60px 0;
+            border-top: 1px solid #30363d;
+        }
+
+        .education-content {
+            max-width: 600px;
+        }
+
+        .education-item {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover {
+            border-color: #4facfe;
+            transform: translateY(-2px);
+        }
+
+        .education-degree {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .education-institution {
+            color: #8b949e;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 0;
+            border-top: 1px solid #30363d;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-description {
+            color: #8b949e;
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid #30363d;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #8b949e;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                align-items: flex-start;
+            }
+
+            .hero-text {
+                font-size: clamp(32px, 12vw, 64px);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-skill-category {
+                min-height: auto;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="profile-section">
+                <div class="profile-info">
+                    <h1>Marisarla Vinay Venkat Kruthin</h1>
+                    <p class="subtitle">Operations Leader • Business Strategist • Growth Architect</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2 class="hero-text">
+                I architect <span class="gradient-blue">growth</span> and <span class="gradient-green">scale</span><br>
+                through strategy-driven <span class="gradient-purple">operational excellence</span><br>
+                that delivers enduring impact.
+            </h2>
+            <p class="hero-description">
+                COO shaping vision into market-leading enterprises through precision, scale, and execution.
+            </p>
+
+
+            <div class="action-buttons">
+                <a href="https://www.linkedin.com/in/vinay-venkat-kruthin-552747254/" class="btn btn-secondary">LinkedIn</a>
+                <div class="email-dropdown" id="emailDropdown">
+                    <button class="email-dropdown-btn" onclick="toggleEmailDropdown()">
+                        Email me ▼
+                    </button>
+                    <div class="email-dropdown-content">
+                        <div class="email-text">Copy my email address:</div>
+                        <div class="email-address" onclick="selectEmail(this)">kruthinvinay@rapturetwelve.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="current-status">
+                <h6>Currently: <strong>Co-founder and COO at RaptureTwelve</strong></h6>
+            </div>
+        </section>
+
+        <!-- Featured Projects / Case Studies -->
+        <section class="projects-section">
+            <div class="section-header">
+                <h3 class="section-title">Flagship Initiatives</h3>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h4 class="project-title">AI-Powered Scam Call Detection System</h4>
+                    <p class="project-description">
+                        Engineered and deployed an AI-driven telecom security platform that identifies and blocks scam calls with 96% accuracy, reducing customer fraud incidents by 58% and cutting detection time from minutes to under 2 seconds.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">AI/ML</span>
+                        <span class="tech-tag">Telecom Security</span>
+                        <span class="tech-tag">Real-time Processing</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h4 class="project-title">Global Expansion Strategy</h4>
+                    <p class="project-description">
+                        Leding cross-border operational scaling for an AI based cybersecurity firm, leading explansion strategy
+                    </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Market Entry</span>
+                    <span class="tech-tag">Business Strategy</span>
+                </div>
+                </div>
+                <div class="project-card">
+                    <h4 class="project-title">AI-Powered Penetration Testing</h4>
+                    <p class="project-description">
+                        Developed and operationalized an AI-driven penetration testing suite capable of simulating advanced persistent threats, automating vulnerability discovery, and improving remediation speed by 50%.
+                    </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Cybersecurity</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">Offensive Security</span>
+                </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Leadership Section (Now appears first) -->
+        <section id="leadership" class="skills-section">
+            <div class="section-header">
+                <h3 class="section-title">Leadership & Business Expertise</h3>
+            </div>
+            <div class="business-skills-grid">
+                <div class="business-skill-category">
+                    <h4 class="business-skill-title">Operations Management</h4>
+                    <p class="business-skill-list">Process optimization, team leadership, resource planning</p>
+                </div>
+                <div class="business-skill-category">
+                    <h4 class="business-skill-title">Business Strategy</h4>
+                    <p class="business-skill-list">Go-to-market planning, growth strategy, market analysis</p>
+                </div>
+                <div class="business-skill-category">
+                    <h4 class="business-skill-title">Partnership Development</h4>
+                    <p class="business-skill-list">B2B relations, investor communications, client acquisition</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership at RaptureTwelve -->
+        <section class="projects-section">
+            <div class="section-header">
+                <h3 class="section-title">Leadership at RaptureTwelve</h3>
+            </div>
+            <div class="projects-grid">
+                <!-- Client Growth & Partnerships -->
+                <div class="project-card">
+                    <h4 class="project-title">Client Growth & Strategic Partnerships</h4>
+                    <p class="project-description">
+                        Directed client engagement initiatives that transformed first-time engagements into long-term partnerships. Built trust through tailored solutions, consistent delivery, and high-touch communication, resulting in a growing portfolio of repeat clients.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Client Relations</span>
+                        <span class="tech-tag">Account Growth</span>
+                        <span class="tech-tag">B2B Strategy</span>
+                    </div>
+                </div>
+
+                <!-- Deal Strategy & Negotiation -->
+                <div class="project-card">
+                    <h4 class="project-title">Deal Strategy & Negotiation</h4>
+                    <p class="project-description">
+                        Led end-to-end deal cycles — from opportunity assessment to contract closure. Negotiated high-value agreements that expanded our market footprint while safeguarding profitability, leveraging a balance of commercial acumen and strategic foresight.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Negotiation</span>
+                        <span class="tech-tag">Market Expansion</span>
+                        <span class="tech-tag">Revenue Growth</span>
+                    </div>
+                </div>
+                <!-- Financial Operations & Scalability -->
+                <div class="project-card">
+                    <h4 class="project-title">Financial Operations & Scalability</h4>
+                    <p class="project-description">
+                        Oversaw company-wide financial strategy, ensuring fiscal discipline without constraining growth. Implemented robust budget controls, optimized cash flow, and aligned financial planning with operational scalability targets.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Financial Management</span>
+                        <span class="tech-tag">Budget Optimization</span>
+                        <span class="tech-tag">Operational Scale</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Skills Section (Now appears after Leadership) -->
+        <section id="skills" class="skills-section">
+            <div class="section-header">
+                <h3 class="section-title">Technical Expertise</h3>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4 class="skill-title">Machine Learning</h4>
+                    <p class="skill-list">TensorFlow, PyTorch, Scikit-learn, MLOps</p>
+                </div>
+
+                <div class="skill-category">
+                    <h4 class="skill-title">Full Stack</h4>
+                    <p class="skill-list">React, Node.js, Python, PostgreSQL</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="education-section">
+            <div class="section-header">
+                <h3 class="section-title">Education</h3>
+            </div>
+
+            <div class="education-content">
+                <div class="education-item">
+                    <h4 class="education-degree">Bachelor of Technology in Artificial Intelligence</h4>
+                    <p class="education-institution">Mahindra University</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="contact-content">
+                <h3 class="contact-title">Securing Tomorrow with AI</h3>
+                <p class="contact-description">
+                    Looking to revolutionize cybersecurity operations or scale AI-driven security solutions? Let's discuss how we can strengthen your security posture and accelerate market penetration.
+                </p>
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-secondary">Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Marisarla Vinay Venkat Kruthin. Built with passion and curiosity.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Email dropdown functions
+        function toggleEmailDropdown() {
+            const dropdown = document.getElementById('emailDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function selectEmail(element) {
+            // Select all text in the email address
+            if (window.getSelection) {
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(element);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('emailDropdown');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Add subtle animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate elements on load
+        document.querySelectorAll('.project-card, .skill-category, .business-skill-category').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add typing effect to hero text (optional)
+        const heroText = document.querySelector('.hero-text');
+        if (heroText) {
+            heroText.style.opacity = '0';
+            setTimeout(() => {
+                heroText.style.opacity = '1';
+                heroText.style.animation = 'fadeInUp 1s ease forwards';
+            }, 300);
+        }
+
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
